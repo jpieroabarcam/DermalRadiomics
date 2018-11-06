@@ -1,0 +1,4 @@
+#ifndef PROCESARIMAGEN_H
+#define PROCESARIMAGEN_H
+
+#endif // PROCESARIMAGEN_H
