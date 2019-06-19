@@ -25,14 +25,32 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        caracteristicas/caracteristica_general.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        procesarimagen/procesarimagen.cpp
 
 HEADERS += \
-        mainwindow.h
+        caracteristicas/caracteristica_general.h \
+        mainwindow.h \
+        procesarimagen/procesarimagen.h
 
 FORMS += \
         mainwindow.ui
+
+INCLUDEPATH += /usr/local/include/opencv4
+LIBS += -L/usr/local/lib \
+-lopencv_core \
+-lopencv_imgcodecs \
+-lopencv_highgui \
+-lopencv_imgproc \
+-lopencv_ml \
+-lopencv_video \
+-lopencv_features2d \
+-lopencv_xfeatures2d \
+-lopencv_calib3d \
+-lopencv_objdetect \
+-lopencv_flann
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
