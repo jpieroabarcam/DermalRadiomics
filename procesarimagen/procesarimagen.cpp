@@ -67,10 +67,33 @@ void ProcesarImagen::clahe(Mat &dst, Mat &imgClahe) {
 
     // convert back to RGB
     cvtColor(lab_image, imgClahe,COLOR_Lab2BGR);
+}
 
-    // display the results  (you might also want to see lab_planes[0] before and after).
-    //cv::imwrite( "image_original.jpg", bgr_image );
-    //cv::imwrite( "image_CLAHE.jpg", image_clahe );
+void ProcesarImagen::histogramEqualization(Mat &dst, Mat &imgHistEq) {
+    //change the color image to grayscale image
+    Mat imgGrayScale;
+    cvtColor(dst, imgGrayScale, COLOR_BGR2GRAY);
+
+    //equalize the histogram
+    equalizeHist(imgGrayScale, imgHistEq);
+}
+
+void ProcesarImagen::histogramEqualizationColor(Mat &dst, Mat &imgHistEqCol) {
+    //Convert the image from BGR to YCrCb color space
+    cvtColor(dst, imgHistEqCol, COLOR_BGR2YCrCb);
+
+    //Split the image into 3 channels; Y, Cr and Cb channels respectively and store it in a std::vector
+    vector<Mat> vec_channels;
+    split(imgHistEqCol, vec_channels);
+
+    //Equalize the histogram of only the Y channel
+    equalizeHist(vec_channels[0], vec_channels[0]);
+
+    //Merge 3 channels in the vector to form the color image in YCrCB color space.
+    merge(vec_channels, imgHistEqCol);
+
+    //Convert the histogram equalized image from YCrCb to BGR color space again
+    cvtColor(imgHistEqCol, imgHistEqCol, COLOR_YCrCb2BGR);
 }
 
 

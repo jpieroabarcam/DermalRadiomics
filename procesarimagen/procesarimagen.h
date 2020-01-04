@@ -33,6 +33,8 @@ public:
     virtual ~ProcesarImagen();
     // Mejorar Imagen
     void contrastStretching(Mat&,Mat&);
+    void histogramEqualization(Mat&, Mat&);
+    void histogramEqualizationColor(Mat&, Mat&);
     void clahe(Mat&,Mat&);
 
     // Pre Procesamiento

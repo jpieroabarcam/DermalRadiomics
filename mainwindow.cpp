@@ -49,9 +49,12 @@ void MainWindow::on_ingresarButton_clicked()
     ProcesarImagen proc(original,binaria,segmentada);
 
     imgOrigen = original.clone();
-    imgContrast = original.clone();
+    //imgContrast = original.clone();
 
-    proc.contrastStretching(imgOrigen,imgContrast);
+    // mejorarmiento de imagen
+    //proc.contrastStretching(imgOrigen,imgContrast);
+    //proc.histogramEqualization(imgOrigen, imgContrast);
+    proc.histogramEqualizationColor(imgOrigen, imgContrast);
     //proc.clahe(imgOrigen, imgContrast);
 
     imshow("origen",imgOrigen);
