@@ -36,18 +36,34 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_ingresarButton_clicked()
 {
-    QString imagefilename = QFileDialog::getOpenFileName( this,"imagen.jpg", path,"Images (*.bmp *.png *.xpm *.jpg *.tif)");
+    QString imagefilename = QFileDialog::getOpenFileName( this,"imagen.jpg", path,"Images (*.bmp *.png *.xpm *.jpg *.jpeg *.tif)");
 
     if(imagefilename == nullptr) return;
 
     Mat source = imread( imagefilename.toStdString());
     original = source.clone();
-    Mat imgAzul;
+    Mat imgAzul;    
+    Mat imgOrigen;
+    Mat imgContrast;
 
     ProcesarImagen proc(original,binaria,segmentada);
 
-    proc.canalAzul(original,imgAzul);
-    imshow("Imagen Original",original);
-    imshow("Imagen Binaria",imgAzul);
+    imgOrigen = original.clone();
+    imgContrast = original.clone();
+
+    proc.contrastStretching(imgOrigen,imgContrast);
+    //proc.clahe(imgOrigen, imgContrast);
+
+    imshow("origen",imgOrigen);
+    imshow("contrast Stretching",imgContrast);
+
+    proc.canalAzul(imgContrast,imgAzul);
+
+    proc.metodoOtsu(imgAzul,imgOrigen);
+    proc.fillHoles(imgOrigen);
+
+    imshow("Canal Azul",imgAzul);
+    imshow("Otsu",imgOrigen);
+
 
 }
